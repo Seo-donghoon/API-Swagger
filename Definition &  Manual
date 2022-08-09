@@ -1,0 +1,81 @@
+👊 API Swagger 
+(웹 문서 형태로 누구든지 Server 로 API가 정상적으로 동작하는지 확인할 수 있음)
+<Web API 를 문서화하기 위한 도구이며 제품의 설명서>
+
+Spring으로 Rest API를 개발하고  API 문서를 정리하여 해당 API를 사용하는 클라이언트 및 서버 개발자들에게 API문서를 공유해야 할때  
+ Swagger를 이용하게 되면 보다 편리하게 할 수 있고, API 문서 자동화,  UI에서 직접 API 테스트도 할 수 있다.
+ API 문서를 일반 문서로 작성하게 되면 API가 변경될 때마다 문서를 함께 수정해줘야 하는 번거로움이 있는데 SpringBoot에서는 Swagger를 사용하면 문서 수정을 자동화할 수 있음.
+
+개발 환경 : 
+ Spring Boot (2.6.6), Maven, JAVA (1.8) , Swagger (2.9.2)
+
+적용 방법 :
+ 1. https://mvnrepository.com/artifact/io.springfox/springfox-swagger2/2.9.2  ( Swagger Jar 파일 다운로드 후 프로젝트에 Import 시키기)
+ 2.  pom.xml 에 아래의 dependency 추가 
+   	</dependency>
+	    <dependency>
+      <groupId>io.springfox</groupId>
+      <artifactId>springfox-swagger2</artifactId>
+      <version>2.9.2</version>
+    </dependency>
+
+    <dependency>
+      <groupId>io.springfox</groupId>
+      <artifactId>springfox-swagger-ui</artifactId>
+      <version>2.9.2</version>
+    </dependency>
+
+3. config 아래의 Swagger 클래스를 생성한뒤 아래와 같이 작성 
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+
+import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.service.ApiInfo;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+
+@Configuration
+@EnableSwagger2
+public class SwaggerConfiguration extends WebMvcConfigurationSupport {
+   
+    @Bean
+    public Docket swagger() {
+        return new Docket(DocumentationType.SWAGGER_2)
+        	.apiInfo(apiInfo())
+            .select()
+            .apis(RequestHandlerSelectors.any())
+            .paths(PathSelectors.any())
+            .build();
+      }
+    
+    private ApiInfo apiInfo() {
+        return new ApiInfoBuilder()
+            .title(" ")
+            .description("\r\n"+ "")
+            .version("1.0.0")
+            .build();
+    }
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+      registry.addResourceHandler("swagger-ui.html")
+          .addResourceLocations("classpath:/META-INF/resources/");
+      registry.addResourceHandler("/webjars/**")
+          .addResourceLocations("classpath:/META-INF/resources/webjars/");
+    }
+
+}
+
+extends WebMvcConfigurationSupport 를 통해 Spring boot 와 Swagger 버전 호환 오류 및 충돌을 방지하였다. 
+
+
+
+
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/47edea85-13b6-4d0b-8915-1ccb455a254a/Untitled.png)
+
+
