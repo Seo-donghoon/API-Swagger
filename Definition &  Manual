@@ -79,3 +79,16 @@ extends WebMvcConfigurationSupport 를 통해 Spring boot 와 Swagger 버전 호
 ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/47edea85-13b6-4d0b-8915-1ccb455a254a/Untitled.png)
 
 
+
+★★★★
+여러 부서와 일을 하게 되면 산출물 공유시 문서가 필요할 경우가 있다. 서버 주소를 알려줄수도 있지만 오프라인으로 api 스펙 문서를 검토해야 할때는 별도의 문서 파일을 원하는 부서가 있을수 있다.
+
+swagger 구현을 넘어서 swagger 공식 홈페이지에서는 swagger editor라는 tool을 제공해주고 있다. 온라인에서 swagger spec json 파일을 로딩하고 각종 아웃풋 파일을 생성할 수 있게 해준다.
+
+swagger editor 주소는 다음과 같다
+
+https://editor.swagger.io
+
+
+
+
